@@ -9,6 +9,9 @@ import CategoryScores from '@/components/CategoryScores';
 import DetailedResults from '@/components/DetailedResults';
 import RecommendationSection from '@/components/RecommendationSection';
 import InfoSection from '@/components/InfoSection';
+import AboutModal from '@/components/AboutModal';
+import MethodologyModal from '@/components/MethodologyModal';
+import ResourcesModal from '@/components/ResourcesModal';
 import { WebsiteAnalysisResult } from '@/types/analysis';
 import { analyzeWebsite } from '@/services/analysisService';
 
@@ -16,6 +19,11 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<WebsiteAnalysisResult | null>(null);
   const [url, setUrl] = useState<string>('');
+  
+  // Modal states
+  const [aboutModalOpen, setAboutModalOpen] = useState(false);
+  const [methodologyModalOpen, setMethodologyModalOpen] = useState(false);
+  const [resourcesModalOpen, setResourcesModalOpen] = useState(false);
 
   const handleAnalyze = async (websiteUrl: string) => {
     setLoading(true);
@@ -87,17 +95,37 @@ const Index = () => {
             Eco Web Compass — Evaluating digital sustainability since 2025
           </p>
           <div className="flex items-center justify-center mt-4 space-x-4">
-            <Button variant="link" size="sm" className="text-muted-foreground hover:text-foreground">
+            <Button 
+              variant="link" 
+              size="sm" 
+              className="text-muted-foreground hover:text-foreground"
+              onClick={() => setAboutModalOpen(true)}
+            >
               About
             </Button>
-            <Button variant="link" size="sm" className="text-muted-foreground hover:text-foreground">
+            <Button 
+              variant="link" 
+              size="sm" 
+              className="text-muted-foreground hover:text-foreground"
+              onClick={() => setMethodologyModalOpen(true)}
+            >
               Methodology
             </Button>
-            <Button variant="link" size="sm" className="text-muted-foreground hover:text-foreground">
+            <Button 
+              variant="link" 
+              size="sm" 
+              className="text-muted-foreground hover:text-foreground"
+              onClick={() => setResourcesModalOpen(true)}
+            >
               Resources
             </Button>
           </div>
         </footer>
+        
+        {/* Modals */}
+        <AboutModal isOpen={aboutModalOpen} onClose={() => setAboutModalOpen(false)} />
+        <MethodologyModal isOpen={methodologyModalOpen} onClose={() => setMethodologyModalOpen(false)} />
+        <ResourcesModal isOpen={resourcesModalOpen} onClose={() => setResourcesModalOpen(false)} />
       </div>
     </div>
   );
