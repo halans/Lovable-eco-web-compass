@@ -15,7 +15,7 @@ Eco Web Compass is a web application that helps users analyze the environmental 
 
 ## Live Demo
 
-You can try the live application at: [https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b](https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b)
+You can try the live demo application at: [https://eco-web-compass.lovable.app](https://eco-web-compass.lovable.app)
 
 ## Getting Started
 
