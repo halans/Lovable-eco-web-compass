@@ -28,7 +28,7 @@ You can try the live demo application at: [https://eco-web-compass.lovable.app](
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/eco-web-compass.git
+   git clone https://github.com/yourusername/Lovable-eco-web-compass.git
    cd eco-web-compass
    ```
 
