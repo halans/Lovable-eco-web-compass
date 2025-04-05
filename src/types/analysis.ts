@@ -29,6 +29,8 @@ export interface HostingDetails {
   usesCDN: boolean;
   usesHTTPS: boolean;
   modernHTTP: boolean;
+  hostingProvider: string; // Added to track the detected hosting provider
+  isCloudflare: boolean; // Added specifically for Cloudflare detection
 }
 
 export interface BestPracticesDetails {

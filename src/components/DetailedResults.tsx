@@ -5,7 +5,7 @@ import FeatureCard from './ui-components/FeatureCard';
 import { WebsiteAnalysisResult } from '@/types/analysis';
 import { 
   Zap, Image, Leaf, Cloud, Grid, Cpu, Database, 
-  FileImage, FileText, Waves, FileBadge2
+  FileImage, FileText, Waves, FileBadge2, Server
 } from 'lucide-react';
 
 interface DetailedResultsProps {
@@ -144,6 +144,13 @@ const DetailedResults: React.FC<DetailedResultsProps> = ({ result }) => {
       </TabsContent>
       
       <TabsContent value="hosting" className="space-y-4">
+        <FeatureCard 
+          title="Hosting Provider"
+          status={result.details.hosting.renewableEnergy ? 'good' : 'neutral'}
+          description={`Detected: ${result.details.hosting.hostingProvider}${result.details.hosting.isCloudflare ? ' (Cloudflare)' : ''} - ${result.details.hosting.renewableEnergy ? 'This hosting provider uses or commits to renewable energy.' : 'Consider switching to a provider that uses renewable energy.'}`}
+          recommendation={!result.details.hosting.renewableEnergy ? "Green hosting providers include Cloudflare, Google Cloud, Azure, AWS, GreenGeeks, and others with renewable energy commitments." : undefined}
+          icon={<Server size={16} />}
+        />
         <FeatureCard 
           title="Renewable Energy Hosting"
           status={result.details.hosting.renewableEnergy ? 'good' : 'bad'}

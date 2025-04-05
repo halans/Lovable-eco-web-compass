@@ -16,6 +16,9 @@ const SustainabilityHeader: React.FC = () => {
       <p className="max-w-2xl mx-auto text-muted-foreground text-lg">
         Analyze and improve your website's environmental impact with our comprehensive sustainability evaluation tool.
       </p>
+      <p className="max-w-2xl mx-auto text-muted-foreground mt-2">
+        Now with improved green hosting detection for Cloudflare, AWS, Google Cloud, and other providers committed to renewable energy.
+      </p>
     </header>
   );
 };

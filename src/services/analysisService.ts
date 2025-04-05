@@ -1,14 +1,27 @@
 
 import { WebsiteAnalysisResult } from '@/types/analysis';
 
+// List of known green hosting providers
+const GREEN_HOSTING_PROVIDERS = [
+  'cloudflare',    // Cloudflare has committed to 100% renewable energy
+  'google cloud',  // Google Cloud is carbon neutral
+  'azure',         // Microsoft Azure has carbon neutral commitments
+  'aws',           // AWS has renewable energy goals
+  'greengeeks',    // GreenGeeks is 300% renewable energy
+  'green house data',
+  'dreamhost',     // 100% carbon neutral
+  'acquia',
+  'rackspace',
+  'digital ocean', // Working towards sustainability goals
+  'netlify',       // Uses carbon neutral AWS infrastructure 
+  'vercel'         // Optimized deployments reduce carbon footprint
+];
+
 // This is a mock implementation for demonstration purposes
 // In a real app, this would make API calls to a sustainability analysis service
 export const analyzeWebsite = async (url: string): Promise<WebsiteAnalysisResult> => {
   // Simulate API call delay
   await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  // For demo purposes, generate random but realistic scoring based on the URL
-  // In a real implementation, this would be replaced with actual API calls
   
   // Create a deterministic but seemingly random value based on the URL
   const getValueFromUrl = (url: string, min: number, max: number): number => {
@@ -19,6 +32,45 @@ export const analyzeWebsite = async (url: string): Promise<WebsiteAnalysisResult
     }
     const normalizedHash = (Math.abs(hash) % 100) / 100;
     return min + normalizedHash * (max - min);
+  };
+  
+  // Detect hosting provider from URL or domain patterns
+  const detectHostingProvider = (url: string): string => {
+    const domainLower = url.toLowerCase();
+    
+    // Check for Cloudflare by domain patterns
+    if (domainLower.includes('cloudflare') || 
+        // Common Cloudflare domain patterns
+        domainLower.includes('workers.dev') ||
+        domainLower.includes('pages.dev')) {
+      return 'cloudflare';
+    }
+    
+    // Random hosting provider selection for demonstration
+    // In a real implementation, this would use actual DNS, HTTP headers, or other methods
+    const hostingProviders = [
+      'cloudflare', 'aws', 'google cloud', 'azure', 'digital ocean',
+      'netlify', 'vercel', 'dreamhost', 'siteground', 'bluehost'
+    ];
+    
+    // For certain domains, make specific attributions to showcase the feature
+    if (domainLower.includes('google')) return 'google cloud';
+    if (domainLower.includes('microsoft')) return 'azure';
+    if (domainLower.includes('amazon')) return 'aws';
+    if (domainLower.includes('cloudflare')) return 'cloudflare';
+    if (domainLower.includes('netlify')) return 'netlify';
+    if (domainLower.includes('vercel')) return 'vercel';
+    
+    // For other domains, use a hash-based approach for consistency
+    const hashValue = getValueFromUrl(url + 'host', 0, hostingProviders.length - 0.01);
+    return hostingProviders[Math.floor(hashValue)];
+  };
+  
+  // Detect if the hosting provider is "green"
+  const isGreenHosting = (provider: string): boolean => {
+    return GREEN_HOSTING_PROVIDERS.some(greenProvider => 
+      provider.toLowerCase().includes(greenProvider.toLowerCase())
+    );
   };
   
   // Generate performance scores
@@ -42,12 +94,16 @@ export const analyzeWebsite = async (url: string): Promise<WebsiteAnalysisResult
   const lowCarbonDesign = getValueFromUrl(url + 'design', 0, 1) > 0.6;
   const greenWebFoundation = getValueFromUrl(url + 'green', 0, 1) > 0.3;
   
-  // Generate hosting scores
-  const renewableEnergy = getValueFromUrl(url + 'renew', 0, 1) > 0.4;
+  // Detect hosting provider and determine if it's green
+  const hostingProvider = detectHostingProvider(url);
+  const isCloudflare = hostingProvider.toLowerCase() === 'cloudflare';
+  const renewableEnergy = isGreenHosting(hostingProvider);
+  
+  // Generate other hosting scores
   const efficientServerLocation = getValueFromUrl(url + 'server', 0, 1) > 0.6;
-  const usesCDN = getValueFromUrl(url + 'cdn', 0, 1) > 0.7;
+  const usesCDN = isCloudflare || getValueFromUrl(url + 'cdn', 0, 1) > 0.7; // Cloudflare is always a CDN
   const usesHTTPS = getValueFromUrl(url + 'https', 0, 1) > 0.9; // Most sites use HTTPS now
-  const modernHTTP = getValueFromUrl(url + 'http', 0, 1) > 0.6;
+  const modernHTTP = isCloudflare || getValueFromUrl(url + 'http', 0, 1) > 0.6; // Cloudflare supports modern HTTP
   
   // Generate best practices scores
   const efficientJavaScript = getValueFromUrl(url + 'js', 0, 1) > 0.5;
@@ -81,6 +137,7 @@ export const analyzeWebsite = async (url: string): Promise<WebsiteAnalysisResult
     (greenWebFoundation ? 100 : 50)) / 5)
   );
   
+  // Update hosting score calculation to properly value Cloudflare and other green providers
   const hostingScore = Math.round(
     ((renewableEnergy ? 100 : 40) +
     (efficientServerLocation ? 100 : 60) +
@@ -137,7 +194,9 @@ export const analyzeWebsite = async (url: string): Promise<WebsiteAnalysisResult
         efficientServerLocation,
         usesCDN,
         usesHTTPS,
-        modernHTTP
+        modernHTTP,
+        hostingProvider,
+        isCloudflare
       },
       bestPractices: {
         efficientJavaScript,
