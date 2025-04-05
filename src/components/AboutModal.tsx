@@ -35,6 +35,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             websites.
           </p>
           
+          <div className="p-3 bg-eco-50 dark:bg-forest-900 rounded-md border border-eco-200 dark:border-forest-800">
+            <p className="text-sm text-muted-foreground italic">
+              Note: This is a demo application using mock services for educational purposes. The analysis results and 
+              recommendations are simulated and would require real backend services for production use.
+            </p>
+          </div>
+          
           <h3 className="text-lg font-semibold mt-4">Our Team</h3>
           <p>
             Our diverse team of developers, environmental scientists, and digital sustainability experts 
