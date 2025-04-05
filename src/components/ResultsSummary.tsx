@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Download, FilePdf, FileCsv, ExternalLink } from 'lucide-react';
+import { Download, FileText, Files, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -104,11 +104,11 @@ const ResultsSummary: React.FC<ResultsSummaryProps> = ({ result, url }) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem onClick={handleExportPDF} className="cursor-pointer">
-                    <FilePdf className="mr-2 h-4 w-4" />
+                    <FileText className="mr-2 h-4 w-4" />
                     <span>PDF Report</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleExportCSV} className="cursor-pointer">
-                    <FileCsv className="mr-2 h-4 w-4" />
+                    <Files className="mr-2 h-4 w-4" />
                     <span>CSV Data</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
