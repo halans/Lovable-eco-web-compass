@@ -80,8 +80,9 @@ const ResultsSummary: React.FC<ResultsSummaryProps> = ({ result, url }) => {
       
       // Add footer
       const footerText = 'Eco Web Compass — Evaluating digital sustainability';
-      const textWidth = doc.getStringUnitWidth(footerText) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-      const textOffset = (pageWidth - textWidth) / 2;
+      // Calculate the width differently without using getFontSize
+      // Use a fixed position for the center instead
+      const textOffset = (pageWidth - doc.getTextWidth(footerText)) / 2;
       doc.setFontSize(10);
       doc.text(footerText, textOffset, 280);
       
