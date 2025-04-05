@@ -1,8 +1,14 @@
 
 import React from 'react';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { Download, FilePdf, FileCsv, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
 import CircularProgress from './ui-components/CircularProgress';
 import { WebsiteAnalysisResult } from '@/types/analysis';
 
@@ -13,6 +19,36 @@ interface ResultsSummaryProps {
 
 const ResultsSummary: React.FC<ResultsSummaryProps> = ({ result, url }) => {
   const displayUrl = new URL(url).hostname;
+  
+  const handleExportPDF = () => {
+    // In a real implementation, this would generate and download a PDF
+    console.log('Exporting PDF report for', url);
+    alert('PDF Export initiated. In a production app, this would generate a detailed PDF report.');
+  };
+  
+  const handleExportCSV = () => {
+    // In a real implementation, this would generate and download a CSV
+    console.log('Exporting CSV data for', url);
+    
+    // Create a simple CSV from the analysis data
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Category,Score\n";
+    csvContent += `Overall,${result.overallScore}\n`;
+    csvContent += `Performance,${result.performanceScore}\n`;
+    csvContent += `Page Weight,${result.pageWeightScore}\n`;
+    csvContent += `Carbon Footprint,${result.carbonFootprintScore}\n`;
+    csvContent += `Hosting,${result.hostingScore}\n`;
+    csvContent += `Best Practices,${result.bestPracticesScore}\n`;
+    
+    // Create a download link and trigger it
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${displayUrl}-sustainability-report.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   
   return (
     <Card className="bg-white/70 dark:bg-forest-950/50 backdrop-blur-sm border-eco-200 dark:border-forest-800">
@@ -55,21 +91,28 @@ const ResultsSummary: React.FC<ResultsSummaryProps> = ({ result, url }) => {
                 : '⚠️ This site has significant room for sustainability improvements.'}
             </p>
             
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="border-eco-200 hover:bg-eco-100 dark:border-forest-700 dark:hover:bg-forest-800"
-              >
-                Download Report <ArrowUpRight className="ml-1 h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="border-eco-200 hover:bg-eco-100 dark:border-forest-700 dark:hover:bg-forest-800"
-              >
-                Share Results <ArrowUpRight className="ml-1 h-4 w-4" />
-              </Button>
+            <div className="flex justify-center md:justify-start">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-eco-200 hover:bg-eco-100 dark:border-forest-700 dark:hover:bg-forest-800"
+                  >
+                    Download Report <Download className="ml-1 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={handleExportPDF} className="cursor-pointer">
+                    <FilePdf className="mr-2 h-4 w-4" />
+                    <span>PDF Report</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleExportCSV} className="cursor-pointer">
+                    <FileCsv className="mr-2 h-4 w-4" />
+                    <span>CSV Data</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
