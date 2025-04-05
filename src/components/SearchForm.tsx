@@ -22,7 +22,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit, loading }) => {
       return;
     }
 
-    // Simple URL format validation
+    // Process the URL to ensure it has https:// prefix
     let processedUrl = url.trim();
     if (!/^https?:\/\//i.test(processedUrl)) {
       processedUrl = 'https://' + processedUrl;
@@ -37,6 +37,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit, loading }) => {
     }
   };
 
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUrl(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
       <div className="flex w-full items-center space-x-2">
@@ -46,8 +50,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit, loading }) => {
             type="text"
             placeholder="Enter website URL (e.g., example.com)"
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={handleUrlChange}
             className="pl-10 pr-4 py-6 bg-white/50 dark:bg-forest-950/30 backdrop-blur-sm focus-visible:ring-eco-600"
+            aria-label="Website URL"
           />
         </div>
         <Button 
