@@ -1,73 +1,130 @@
-# Welcome to your Lovable project
 
-## Project info
+# Eco Web Compass - Website Sustainability Analyzer
 
-**URL**: https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b
+Eco Web Compass is a web application that helps users analyze the environmental impact of websites and provides actionable recommendations to improve digital sustainability.
 
-## How can I edit this code?
+![Eco Web Compass Screenshot](https://via.placeholder.com/800x400?text=Eco+Web+Compass+Screenshot)
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **Website Analysis:** Enter any URL to analyze its sustainability metrics
+- **Comprehensive Scoring:** Get detailed scores for performance, page weight, carbon footprint, hosting, and best practices
+- **Actionable Recommendations:** Receive specific suggestions to improve your website's sustainability
+- **Export Options:** Download your sustainability report as PDF or CSV
+- **Responsive Design:** Works on desktop, tablet, and mobile devices
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b) and start prompting.
+## Live Demo
 
-Changes made via Lovable will be committed automatically to this repo.
+You can try the live application at: [https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b](https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b)
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (v16 or newer)
+- npm or yarn package manager
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/eco-web-compass.git
+   cd eco-web-compass
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Start the development server:
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. Open your browser and navigate to `http://localhost:8080`
+
+## Project Structure
+
+```
+eco-web-compass/
+├── src/                   # Source code
+│   ├── components/        # React components
+│   │   ├── ui/            # Shadcn UI components
+│   │   └── ...            # Custom components
+│   ├── hooks/             # Custom React hooks
+│   ├── pages/             # Page components
+│   ├── services/          # API services
+│   ├── types/             # TypeScript definitions
+│   ├── App.tsx            # Main App component
+│   └── main.tsx           # Application entry point
+├── public/                # Static assets
+└── ...                    # Configuration files
 ```
 
-**Edit a file directly in GitHub**
+## Technologies Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- [React](https://reactjs.org/) - UI library
+- [TypeScript](https://www.typescriptlang.org/) - Type checking
+- [Vite](https://vitejs.dev/) - Build tool and development server
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Shadcn UI](https://ui.shadcn.com/) - Component library
+- [React Query](https://tanstack.com/query/latest) - Data fetching and state management
+- [jsPDF](https://github.com/parallax/jsPDF) - PDF generation
+- [Lucide React](https://lucide.dev/) - Icon library
 
-**Use GitHub Codespaces**
+## Customization
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Theming
 
-## What technologies are used for this project?
+The application uses Tailwind CSS for styling. You can customize the theme by modifying the `tailwind.config.ts` file.
 
-This project is built with:
+### API Integration
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+By default, the application uses a mock service for website analysis. To integrate with a real API:
 
-## How can I deploy this project?
+1. Update the `analysisService.ts` file in `src/services/` directory
+2. Modify the API endpoints and data processing logic
 
-Simply open [Lovable](https://lovable.dev/projects/904d2012-5112-4aeb-ba52-6c6f34c6896b) and click on Share -> Publish.
+## Deployment
 
-## Can I connect a custom domain to my Lovable project?
+### Building for Production
 
-Yes it is!
+```sh
+npm run build
+# or
+yarn build
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This will generate a production-ready build in the `dist` directory.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Deploying to a Static Host
+
+You can deploy the contents of the `dist` directory to any static hosting provider like Netlify, Vercel, GitHub Pages, or AWS S3.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Lovable](https://lovable.dev) - The AI-powered editor used to create this application
+- All contributors and open source libraries used in this project
+
+## Contact
+
+For questions or feedback, please open an issue in the GitHub repository.
